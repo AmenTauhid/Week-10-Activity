@@ -223,20 +223,20 @@ def show_analytics_page(df):
     col1, col2 = st.columns(2)
     with col1:
         fig1 = create_tagged_pie_chart(filtered_df)
-        st.plotly_chart(fig1, use_container_width=True)
+        st.plotly_chart(fig1, width='stretch')
 
     # Task 4.4: Cost by environment
     with col2:
         fig4 = create_cost_by_environment_chart(filtered_df)
-        st.plotly_chart(fig4, use_container_width=True)
+        st.plotly_chart(fig4, width='stretch')
 
     # Task 4.2: Cost by department
     fig2 = create_cost_by_department_chart(filtered_df)
-    st.plotly_chart(fig2, use_container_width=True)
+    st.plotly_chart(fig2, width='stretch')
 
     # Task 4.3: Cost by service
     fig3 = create_cost_by_service_chart(filtered_df)
-    st.plotly_chart(fig3, use_container_width=True)
+    st.plotly_chart(fig3, width='stretch')
 
     # Additional insights
     st.markdown("---")
@@ -252,7 +252,7 @@ def show_analytics_page(df):
         }).round(2)
         dept_analysis.columns = ['Resource Count', 'Total Cost (USD)', 'Tagging Rate (%)']
         dept_analysis = dept_analysis.sort_values('Total Cost (USD)', ascending=False)
-        st.dataframe(dept_analysis, use_container_width=True)
+        st.dataframe(dept_analysis, width='stretch')
 
     with tab2:
         service_analysis = filtered_df.groupby('Service').agg({
@@ -262,7 +262,7 @@ def show_analytics_page(df):
         }).round(2)
         service_analysis.columns = ['Resource Count', 'Total Cost (USD)', 'Tagging Rate (%)']
         service_analysis = service_analysis.sort_values('Total Cost (USD)', ascending=False)
-        st.dataframe(service_analysis, use_container_width=True)
+        st.dataframe(service_analysis, width='stretch')
 
     with tab3:
         env_analysis = filtered_df.groupby('Environment').agg({
@@ -272,7 +272,7 @@ def show_analytics_page(df):
         }).round(2)
         env_analysis.columns = ['Resource Count', 'Total Cost (USD)', 'Tagging Rate (%)']
         env_analysis = env_analysis.sort_values('Total Cost (USD)', ascending=False)
-        st.dataframe(env_analysis, use_container_width=True)
+        st.dataframe(env_analysis, width='stretch')
 
 def show_remediation_page(df):
     """Task Set 5: Tag Remediation Workflow"""
@@ -314,7 +314,7 @@ def show_remediation_page(df):
     # Task 5.2: Editable data editor
     edited_df = st.data_editor(
         untagged_df[edit_columns],
-        use_container_width=True,
+        width='stretch',
         num_rows="fixed",
         column_config={
             "ResourceID": st.column_config.TextColumn("Resource ID", disabled=True),
@@ -407,7 +407,7 @@ def show_remediation_page(df):
     fig.add_trace(go.Bar(name='Before', x=comparison_data['Metric'], y=comparison_data['Before'], marker_color='#e74c3c'))
     fig.add_trace(go.Bar(name='After', x=comparison_data['Metric'], y=comparison_data['After'], marker_color='#2ecc71'))
     fig.update_layout(barmode='group', title='Before vs After Remediation')
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width='stretch')
 
     # Task 5.3: Download updated dataset
     st.markdown("---")
